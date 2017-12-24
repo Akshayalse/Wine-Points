@@ -1,22 +1,27 @@
 # Wine-Points
 
-install.packages(c('tm', 'SnowballC', 'wordcloud', 'topicmodels'));
-
+install.packages(c('tm', 'SnowballC', 'wordcloud', 'topicmodels'))
 
 library(tm);
 # Loading required package: NLP
-library(SnowballC);
-library(wordcloud);
+library(SnowballC)
+
+library(wordcloud)
 # Loading required package: RColorBrewer
 
 wine =  read.csv("winemag-data-130k-v2.csv",stringsAsFactors = F, row.names = 1);
-typeof(wine);
-nrow(wine);
+typeof(wine)
+
+nrow(wine)
+
 NCOL(wine)
 # Initializing the target variable
 rating_bound <- 90
+
 wine$rating_above_90 <- as.factor(wine$points > rating_bound)
+
 wine$variety <- as.factor(wine$variety)
+
 head(wine, 5)
 
 wine_corpus = Corpus(VectorSource(wine$description))
