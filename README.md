@@ -16,7 +16,7 @@ str(wine)
 
 nrow(wine)
 
-NCOL(wine)
+ncol(wine)
 
 # Initializing the target variable and Corpus
 rating_bound <- 90
@@ -59,7 +59,7 @@ wordcloud(rownames(freq), freq[,1], max.words=50, colors=brewer.pal(1, "Dark2"))
 wine = cbind(wine, as.matrix(wine_dtm_tfidf))
 
 
-# Displaying the words appearing at least two thousand times in the wine_dtm_tfidf matrix:
+# Displaying the words appearing at least two thousand times in the wine_dtm_tfidf matrix
 findFreqTerms(wine_dtm_tfidf, 2000)
 
 wine_freq_words <- findFreqTerms(wine_dtm_tfidf, 2000)
