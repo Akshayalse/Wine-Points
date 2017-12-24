@@ -29,7 +29,7 @@ head(wine, 5)
 
 wine_corpus = Corpus(VectorSource(wine$description))
 
-# Cleanig of the corpus
+# Cleaning of the corpus
 wine_corpus = tm_map(wine_corpus, content_transformer(tolower))
 
 wine_corpus = tm_map(wine_corpus, removeNumbers)
