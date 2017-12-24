@@ -56,8 +56,6 @@ freq = data.frame(sort(colSums(as.matrix(wine_dtm_tfidf)), decreasing=TRUE))
 
 wordcloud(rownames(freq), freq[,1], max.words=50, colors=brewer.pal(1, "Dark2"))
 
-wine = cbind(wine, as.matrix(wine_dtm_tfidf))
-
 
 # Displaying the words appearing at least two thousand times in the wine_dtm_tfidf matrix
 findFreqTerms(wine_dtm_tfidf, 2000)
@@ -70,7 +68,7 @@ typeof(wine_dtm_tfidf)
 
 ncol(wine_dtm_tfidf)
 
-# Combining the DTM and data set
+# Combining the DTM and data set and division of the dataset
 wine = cbind(wine, as.matrix(wine_dtm_tfidf))
 
 set.seed(123)
@@ -99,7 +97,7 @@ wine.pred = predict(wine.tree, wine_test, type = "class")
 wine.pred
 
 
-# Package for confusion matrix
+# Assuring with the accuracy
 library(caret)
 
 confusionMatrix(wine.pred, wine_test$rating_above_90)
