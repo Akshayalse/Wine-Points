@@ -1,9 +1,9 @@
 # Wine-Points
-
+# Loading required package: NLP
 install.packages(c('tm', 'SnowballC', 'wordcloud', 'topicmodels'))
 
 library(tm);
-# Loading required package: NLP
+
 library(SnowballC)
 
 library(wordcloud)
