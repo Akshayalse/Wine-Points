@@ -13,7 +13,7 @@ wine =  read.csv("winemag-data-130k-v2.csv",stringsAsFactors = F, row.names = 1)
 typeof(wine)
 nrow(wine)
 NCOL(wine)
-#Initializing the target variable
+# Initializing the target variable
 rating_bound <- 90
 wine$rating_above_90 <- as.factor(wine$points > rating_bound)
 wine$variety <- as.factor(wine$variety)
@@ -21,7 +21,7 @@ head(wine, 5)
 
 wine_corpus = Corpus(VectorSource(wine$description))
 
-#Cleanig of the corpus
+# Cleanig of the corpus
 wine_corpus = tm_map(wine_corpus, content_transformer(tolower))
 wine_corpus = tm_map(wine_corpus, removeNumbers)
 wine_corpus = tm_map(wine_corpus, removePunctuation)
@@ -32,18 +32,18 @@ wine_corpus = tm_map(wine_corpus, stripWhitespace)
 inspect(wine_corpus[1])
 
 
-#Creating the Document term matrix
+# Creating the Document term matrix
 wine_dtm_tfidf = DocumentTermMatrix(wine_corpus, control = list(weighting = weightTfIdf))
 wine_dtm_tfidf = removeSparseTerms(wine_dtm_tfidf, 0.98)
 
 
-##Creating the worldcloud of most frequent words
+# Creating the worldcloud of most frequent words
 freq = data.frame(sort(colSums(as.matrix(wine_dtm_tfidf)), decreasing=TRUE))
 wordcloud(rownames(freq), freq[,1], max.words=50, colors=brewer.pal(1, "Dark2"))
 wine = cbind(wine, as.matrix(wine_dtm_tfidf))
 
 
-#following command will display the words appearing at least two thousand times in
+# Following command will display the words appearing at least two thousand times in
 #the sms_dtm_train matrix:
 findFreqTerms(wine_dtm_tfidf, 2000)
 wine_freq_words <- findFreqTerms(wine_dtm_tfidf, 2000)
@@ -51,7 +51,7 @@ wine_dtm_tfidf = wine_dtm_tfidf[ , wine_freq_words]
 typeof(wine_dtm_tfidf)
 ncol(wine_dtm_tfidf)
 
-#Combining the DTM and data set
+# Combining the DTM and data set
 wine = cbind(wine, as.matrix(wine_dtm_tfidf))
 set.seed(123)
 id_train <- sample(nrow(wine),nrow(wine)*0.70)
@@ -59,7 +59,7 @@ wine_train <- wine[id_train,]
 wine_test <- wine[-id_train,]
 wine$rating_above_90 = as.factor(wine$rating_above_90)
 
-#Training the algorithm
+# Training the algorithm
 install.packages(c('rpart', 'rpart.plot'))
 library(rpart)
 library(rpart.plot)
@@ -70,7 +70,7 @@ wine.pred = predict(wine.tree, wine_test, type = "class")
 wine.pred
 
 
-#Package for confusion matrix
+# Package for confusion matrix
 library(caret)
 confusionMatrix(wine.pred, wine_test$rating_above_90)
 
