@@ -81,7 +81,7 @@ wine_test <- wine[-id_train,]
 
 wine$rating_above_90 = as.factor(wine$rating_above_90)
 
-# Training the algorithm
+# Training the dataset
 install.packages(c('rpart', 'rpart.plot'))
 
 library(rpart)
